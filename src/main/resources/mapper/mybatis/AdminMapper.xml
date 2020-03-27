@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mobaas.smfx.dao.mybatis.AdminMapper">
+
+  <resultMap id="adminResult" type="com.mobaas.smfx.domain.Administrator">
+    <result property="adminId" column="admin_id" />
+    <result property="loginName" column="login_name" />
+    <result property="password" column="password" />
+    <result property="realname" column="realname" />
+    <result property="cellphone" column="cellphone" />
+    <result property="email" column="email" />
+    <result property="addTime" column="add_time" />
+    <result property="manager" column="manager" />
+    <result property="permissions" column="permissions" />
+   </resultMap>
+
+  <resultMap id="adminLogResult" type="com.mobaas.smfx.domain.AdminLog">
+    <result property="logId" column="log_id" />
+    <result property="category" column="category" />
+    <result property="opName" column="op_name" />
+    <result property="loginName" column="login_name" />
+    <result property="duration" column="duration" />
+    <result property="result" column="result" />
+    <result property="adminId" column="admin_id" />
+    <result property="logTime" column="log_time" />
+    <result property="logIp" column="log_ip" />
+   </resultMap>
+
+  <select id="selectAdminLogList" resultMap="adminLogResult" >
+	select *
+		from adminlog
+   		order by log_time desc
+  </select>
+  
+  <select id="selectAdminLogCount" resultType="Integer" >
+	select
+		count(*)
+		from adminlog
+  </select>
+   
+  <select id="selectAdminById" resultMap="adminResult">
+    select *
+      from administrator
+       where admin_id = #{adminId}
+  </select>      
+  
+  <select id="selectAdminCount" resultType="int">
+    select count(*)
+      from administrator
+  </select>
+  
+  <select id="selectAdminList" resultMap="adminResult">
+    select *
+      from administrator
+  </select>
+  
+  <select id="selectAdminByName" resultMap="adminResult">
+    select *
+      from administrator
+    where login_name = #{loginName}
+  </select>
+
+  <select id="selectAdminByNameAndPassword" resultMap="adminResult">
+    select *
+      from administrator
+    where login_name = #{loginName}
+      and password = #{password}
+  </select>
+  
+  <insert id="insertAdmin">                
+    insert into administrator (admin_id,login_name,password,realname,cellphone,email,add_time,manager,permissions)
+    values (#{adminId}, #{loginName},#{password},#{realname},#{cellphone},#{email},#{addTime},#{manager}, #{permissions})
+  </insert>
+  
+  <delete id="deleteAdmin">
+  	delete from administrator
+  	where admin_id = #{adminId}
+  </delete>
+
+  <insert id="insertAdminLog">
+    insert into adminlog (log_id, category, op_name, duration, result, login_name, admin_id,log_time,log_ip)
+    values (#{logId}, #{category}, #{opName}, #{duration}, #{result}, #{loginName}, #{adminId},#{logTime},#{logIp})
+  </insert>
+  
+  <update id="updateAdmin">
+  	update administrator set
+  		realname = #{realname},
+  		cellphone = #{cellphone},
+  		email = #{email},
+  		password = #{password},
+  		manager = #{manager},
+  		permissions = #{permissions}
+  	where login_name = #{login_name}
+  </update>
+ 
+</mapper>

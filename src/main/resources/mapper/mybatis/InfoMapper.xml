@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mobaas.smfx.dao.mybatis.InfoMapper">
+
+  <resultMap id="infoResult" type="com.mobaas.smfx.domain.Info">
+    <result property="id" column="id" />
+    <result property="title" column="title" />
+    <result property="category" column="category" />
+    <result property="content" column="content" />
+    <result property="pubTime" column="pub_time" />
+    <result property="topNo" column="top_no" />
+   </resultMap>
+ 
+  <select id="selectInfoCount" resultType="int">
+  	select count(*) from info
+  </select>
+  
+  <select id="selectInfoList" resultMap="infoResult">
+	  select id, title, category, '' as content, pub_time, top_no 
+	  from info
+  	order by top_no desc, pub_time desc
+  </select>
+  
+  <insert id="insertInfo">
+  	insert into info (title, category, content, pub_time, top_no)
+  	values (#{title}, #{category}, #{content}, #{pubTime}, #{topNo})
+  </insert>
+  
+  <select id="selectInfoById" resultMap="infoResult">
+  	select * from
+  		info
+  		where id=#{id}
+  </select>
+  
+  <update id="updateInfo">
+  	update info set
+  		title=#{title},
+  		content=#{content},
+  		category=#{category},
+  		top_no=#{topNo}
+  	where id=#{id}
+  </update>
+  
+  <delete id="deleteInfo">
+  	delete from info
+  	where id=#{id}
+  </delete>
+  
+</mapper>

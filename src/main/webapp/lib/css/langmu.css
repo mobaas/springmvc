@@ -1,0 +1,26 @@
+.l-manage{
+    width: 90%;
+    margin: 10px;
+    border: 1px #ccc solid
+}
+.l-manage-new{
+    height: 40px;
+    line-height: 40px;
+}
+.l-manage-title{
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+}
+.l-manage-content{
+    padding: 0 30px 0 30px;
+}
+.l-manage-content ul{
+    padding: 10px;
+}
+.l-manage-content div, ul li{
+    display: flex;
+    justify-content: space-between;
+    line-height: 50px;
+}
+
